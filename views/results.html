@@ -11,8 +11,19 @@
 <body>
 <div class="container" id="main">
     <h1>Thank you for creating your profile!</h1>
-
-<!--<h2>You ordered {{ @SESSION.food }} for {{ @SESSION.meal }}</h2>-->
+<div class="col-25">
+    <ul>
+        <li>First and Last name: {{ @SESSION.first }}, {{ @SESSION.last }}</li>
+        <li>Age: {{ @SESSION.age }}</li>
+        <li>Gender: {{ @SESSION.gender }}</li>
+        <li>Phone: {{ @SESSION.phone }}</li>
+        <li>Email: {{ @SESSION.email }}</li>
+        <li>State: {{ @SESSION.state }}</li>
+        <li>Seeking: {{ @SESSION.seeking }}</li>
+        <li>Indoor Activities: {{ @SESSION.indoor }}</li>
+        <li>Outdoor Activities: {{ @SESSION.outdoor }}</li>
+    </ul>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
