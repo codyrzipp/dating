@@ -28,6 +28,12 @@ $f3->route('POST /profile2', function() {
     $view = new Template();
     echo $view -> render('views/form2.html');
 });
+
+//define a form3 route
+$f3->route('POST /profile3', function() {
+    $view = new Template();
+    echo $view -> render('views/form3.html');
+});
 //run fat free
 $f3 -> run();
 
