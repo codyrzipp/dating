@@ -34,6 +34,14 @@ $f3->route('POST /profile3', function() {
     $view = new Template();
     echo $view -> render('views/form3.html');
 });
+
+//define a summary route
+$f3 -> route('POST /summary', function() {
+//    var_dump($_POST);
+//    $_SESSION['order'] = $_POST['food'];
+    $view = new Template();
+    echo $view -> render('views/results.html');
+});
 //run fat free
 $f3 -> run();
 
