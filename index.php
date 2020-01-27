@@ -51,16 +51,11 @@ $f3->route('POST /profile3', function() {
 $f3 -> route('POST /summary', function() {
     var_dump($_POST);
     $string = "";
-    for($i = 0; $i < count($_POST['indoor']); $i++) {
-        $string .= $_POST['indoor'][$i]." ";
+    for($i = 0; $i < count($_POST['activities']); $i++) {
+        $string .= $_POST['activities'][$i]." ";
     }
-    $_SESSION['indoor'] = $string;
+    $_SESSION['activities'] = $string;
 
-    $string1 = "";
-    for ($j = 0; $j < count($_POST['outdoor']); $j++) {
-        $string1 .= $_POST['outdoor'][$i]." ";
-    }
-    $_SESSION['outdoor'] = $string1;
     $view = new Template();
     echo $view -> render('views/results.html');
 });

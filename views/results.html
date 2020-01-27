@@ -11,19 +11,30 @@
 <body>
 <div class="container" id="main">
     <h1>Thank you for creating your profile!</h1>
-<div class="col-25">
-    <ul>
-        <li>First and Last name: {{ @SESSION.first }}, {{ @SESSION.last }}</li>
-        <li>Age: {{ @SESSION.age }}</li>
-        <li>Gender: {{ @SESSION.gender }}</li>
-        <li>Phone: {{ @SESSION.phone }}</li>
-        <li>Email: {{ @SESSION.email }}</li>
-        <li>State: {{ @SESSION.state }}</li>
-        <li>Seeking: {{ @SESSION.seeking }}</li>
-        <li>Indoor Activities: {{ @SESSION.indoor }}</li>
-        <li>Outdoor Activities: {{ @SESSION.outdoor }}</li>
-    </ul>
+    <div>
+        <img src="images/avatar.png" alt="empty avatar photo" id="avatar" class="float-right">
     </div>
+    <div class="col-5">
+        <h5>Profile Information</h5>
+        <ul>
+            <li class="list-group-item">First and Last name: {{ @SESSION.first }}, {{ @SESSION.last }}</li>
+            <li class="list-group-item">Age: {{ @SESSION.age }}</li>
+            <li class="list-group-item">Gender: {{ @SESSION.gender }}</li>
+            <li class="list-group-item">Phone: {{ @SESSION.phone }}</li>
+            <li class="list-group-item">Email: {{ @SESSION.email }}</li>
+            <li class="list-group-item">State: {{ @SESSION.state }}</li>
+            <li class="list-group-item">Seeking: {{ @SESSION.seeking }}</li>
+            <li class="list-group-item">Indoor Activities: {{ @SESSION.activities }}</li>
+
+        </ul>
+    </div>
+    <div class="col-5">
+        <h5>Biography</h5>
+        <ul>
+            <li class="list-group-item">Bio: {{ @SESSION.bio }}</li>
+        </ul>
+    </div>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
