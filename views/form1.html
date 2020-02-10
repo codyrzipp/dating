@@ -10,21 +10,30 @@
 </head>
 <body>
 <div class="container" id="main">
-    <form method="post" action="profile2">
+    <form method="post" action="#">
 
         <fieldset class="form-group">
             <legend>Personal Information</legend>
             <div>
-                <label for="first"><strong>First Name.</strong></label><br>
-                <input type="text" id="first" name="first">
+                <label><strong>First Name.</strong></label><br>
+                <input type="text" name="first" value="{{ @first }}">
+                <check if="{{ @errors['first'] }}">
+                    <span class="err">{{ @errors['first'] }}</span>
+                </check><br>
             </div>
             <div>
-                <label for="last"><strong>Last Name.</strong></label><br>
-            <input type="text" id="last" name="last">
+                <label><strong>Last Name.</strong></label><br>
+            <input type="text" name="last" value="{{ @last }}">
+                <check if="{{ @errors['last'] }}">
+                    <span class="err">{{ @errors['last'] }}</span>
+                </check><br>
             </div>
             <div>
-            <label for="age"><strong>Age.</strong></label><br>
-            <input type="number" id="age" name="age">
+            <label><strong>Age.</strong></label><br>
+            <input type="number" name="age" value="{{ @age }}">
+                <check if="{{ @errors['age'] }}">
+                    <span class="err">{{ @errors['age'] }}</span>
+                </check><br>
             </div>
             <div>
             <label><strong>Gender</strong></label><br>
@@ -33,7 +42,10 @@
             </div>
             <div>
                 <label><strong>Phone Number</strong></label><br>
-            <input type="tel" name="phone">
+            <input type="tel" name="phone" value="{{ @phone }}">
+                <check if="{{ @errors['phone'] }}">
+                    <span class="err">{{ @errors['phone'] }}</span>
+                </check>
             </div>
         </fieldset>
         <input type="submit" class="btn btn-primary btn-outline-dark">
