@@ -1,88 +1,57 @@
 <?php
 //this is our controller!
-
-session_start();
 //turn on error reporting
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 //require the autoload file
-require_once ('vendor/autoload.php');
-require_once ('model/validate.php');
+require ('vendor/autoload.php');
+require ('model/validate.php');
+
+session_start();
 
 //create an instance of the base class
 $f3 = Base::instance();
 
+$routes = new Routes($f3);
+$validation = new Validate($f3);
+
 //define a default route
 $f3->route('GET /', function() {
-    $view = new Template();
-    echo $view -> render('views/home.html');
+    $GLOBALS['routes']->home();
 });
 
 //define a profile route
-$f3->route('GET|POST /profile', function($f3) {
-    //If form has been submitted, validate
+$f3->route('GET|POST /profile', function() {
+    $_SESSION = array();
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-        //Get data from form
-        $first = $_POST['first'];
-        $last = $_POST['last'];
-        $age = $_POST['age'];
-        $phone = $_POST["phone"];
-
-        //Add data to hive
-        $f3->set('first', $first);
-        $f3->set('last', $last);
-        $f3->set('age', $age);
-        $f3->set('phone', $phone);
-
-        //If data is valid
-        if (validForm()) {
-            $_SESSION['first'] = $first;
-            $_SESSION['last'] = $last;
-            $_SESSION['age'] = $age;
-            $_SESSION['phone'] = $phone;
-
-            //Redirect to Summary
-            $f3->reroute('views/form1.html');
-        }
+        $GLOBALS['validate']->validPerson($_POST['first'], $_POST['last'], $_POST['age'],
+            $_POST['gender'], $_POST['phone'], $_POST['premium']);
     }
-    $view = new Template();
-    echo $view -> render('views/form1.html');
+    $GLOBALS['routes']->profile();
 });
 
 //define a form2 route
-$f3->route('GET|POST /profile2', function($f3) {
-    var_dump($_POST);
-
-
-    $view = new Template();
-    echo $view -> render('views/form2.html');
+$f3->route('GET|POST /information', function() {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $GLOBALS['validation']->validInfo($_POST['email'], $_POST['state'], $_POST['seeking'], $_POST['bio']);
+    }
+    $GLOBALS['routes']->personalInfo();
 });
 
 //define a form3 route
-$f3->route('POST /profile3', function($f3) {
-    var_dump($_POST);
-    $_SESSION['email'] = $_POST['email'];
-    $_SESSION['state'] = $_POST['state'];
-    $_SESSION['seeking'] = $_POST['seeking'];
-    $_SESSION['bio'] = $_POST['bio'];
-    $f3 -> set('email', $email);
-    $view = new Template();
-    echo $view -> render('views/form3.html');
+$f3->route('GET|POST /interests', function() {
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $GLOBALS['validation']->validActivities($_POST['indoor']);
+//        $GLOBALS['validation']->validActiv($_POST['outdoor']);
+    }
+    $GLOBALS['routes']->interests();
 });
 
 //define a summary route
-$f3 -> route('POST /summary', function($f3) {
-    var_dump($_POST);
-    $string = "";
-    for($i = 0; $i < count($_POST['activities']); $i++) {
-        $string .= $_POST['activities'][$i]." ";
-    }
-    $_SESSION['activities'] = $string;
-    $f3 -> set('activities', $activities);
-    $view = new Template();
-    echo $view -> render('views/results.html');
+$f3 -> route('POST|GET /results', function() {
+    $GLOBALS['routes']->results();
 });
 //run fat free
 $f3 -> run();
