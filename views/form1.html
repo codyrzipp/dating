@@ -37,7 +37,7 @@
             </div>
             <div>
             <label><strong>Gender</strong></label><br>
-            <input type="radio" name="gender" value="Male">Male
+            <input type="radio" name="gender" value="Male"> Male
             <input type="radio" name="gender" value="Female"> Female
             </div>
             <div>
@@ -47,8 +47,12 @@
                     <span class="err">{{ @errors['phone'] }}</span>
                 </check>
             </div>
+            <div>
+                <Label>would you like to sign up for a <strong>Premium Membership</Strong>?</Label><br>
+                <input type="checkbox" name="membership[]" value="Sign me up for a Premium Account!">
+            </div>
         </fieldset>
-        <input type="submit" class="btn btn-primary btn-outline-dark">
+        <a href="information" class="btn btn-primary btn-outline-dark">Next Page</a>
     </form>
 </div>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

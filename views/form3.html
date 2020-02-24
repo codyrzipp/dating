@@ -11,30 +11,35 @@
 <body>
 
 <div class="container" id="main">
-    <form method="post" action="summary">
+    <form method="post" action="#">
 
         <fieldset class="form-group">
             <legend>Interests</legend>
             <div>
                 <label><strong>Indoor Activities</strong></label><br>
-                <input type="checkbox" id="TV" value="tv" name="activities[]">TV
-                <input type="checkbox" id="Puzzles" value="puzzles" name="activities[]">Puzzles
-                <input type="checkbox" id="Movies" value="movies" name="activities[]">Movies
-                <input type="checkbox" id="Reading" value="reading" name="activities[]">Reading
-                <input type="checkbox" id="Cooking" value="cooking" name="activities[]">Cooking
-                <input type="checkbox" id="Playing Cards" value="cards" name="activities[]">Playing Cards
-                <input type="checkbox" id="Board Games" value="board games" name="activities[]">Board Games
-                <input type="checkbox" id="Video Games" value="video games" name="activities[]">Video Games
-            </div>
+                <repeat group="{{ @indoor }}" value="{{ @indoorOption }}">
+                    <label><input type="checkbox"
+                                  name="indoor[]"
+                                  value="{{ @indoorOption }}"
+                        <check if="{{ isset( @selectedIndoor ) && in_array( @indoorOption, @selectedIndoor )}}">
+                            checked="checked"
+                        </check>
+                        >{{ @indoorOption }}
+                    </label>
+                </repeat>
+                </div>
             <div>
                 <label><strong>Outdoor Activities</strong></label><br>
-                <input type="checkbox" id="Hiking" value="hiking" name="activities[]">Hiking
-                <input type="checkbox" id="Walking" value="walking" name="activities[]">Walking
-                <input type="checkbox" id="Biking" value="biking" name="activities[]">Biking
-                <input type="checkbox" id="Climbing" value="climbing" name="activities[]">Climbing
-                <input type="checkbox" id="Swimming" value="swimming" name="activities[]">Swimming
-                <input type="checkbox" id="Collecting" value="collecting" name="activities[]">Collecting
-                <input type="checkbox" id="Sports" value="sports" name="activities[]">Sports
+                <repeat group="{{ @outdoor }}" value="{{ @outdoorOption }}">
+                    <label><input type="checkbox"
+                                  name="outdoor[]"
+                                  value="{{ @outdoorOption }}"
+                        <check if="{{isset( @selectedOutdoor ) && in_array( @outdoorOption, @selectedOutdoor )}}">
+                            checked="checked"
+                        </check>
+                        >{{ @outdoorOption }}
+                    </label>
+                </repeat>
             <div>
         </fieldset>
         <input type="submit" class="btn btn-primary btn-outline-dark">
