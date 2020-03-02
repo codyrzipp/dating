@@ -3,9 +3,9 @@ class PremiumMembers extends members
 {
     private $_interestArray;
 
-    function __construct($fName, $lName, $age, $gender, $phone)
+    function __construct($fName, $lName, $age)
     {
-        parent::__construct($fName, $lName, $age, $gender, $phone);
+        parent::__construct($fName, $lName, $age);
         $this->_interestArray= "Not Specified";
     }
 

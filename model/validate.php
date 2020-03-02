@@ -1,11 +1,12 @@
 <?php
-
-class validate
+//require ("model/validation.php");
+class Validate
 {
     private $_f3;
+
     function __construct($f3)
     {
-        $this->_f3=$f3;
+        $this->_f3 = $f3;
         $this->_f3->set('states', array('Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
             'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho',
             'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
@@ -19,91 +20,101 @@ class validate
             'video games'));
         $this->_f3->set('outdoor', array('hiking', 'biking', 'swimming', 'collecting', 'walking', 'climbing', 'sports'));
     }
-}
-function validPerson($first, $last, $age, $gender, $phone, $prem)
-{
-    $isValid = true;
 
-    $this->_f3->set('first', $first);
-    $this->_f3->set('last', $last);
-    $this->_f3->set('age', $age);
-    $this->_f3->set('gender', $gender);
-    $this->_f3->set('phone', $phone);
-    if (!validFirst($first)) {
+    function validPerson($first, $last, $age)
+    {
+        $isValid = true;
 
-        $this->_f3->set("errors['first']", "Please enter a first name");
-        $isValid = false;
+        if (!validFirst($first)) {
+
+            $isValid = false;
+            $this->_f3->set("errors['first']", "Please enter a first name");
+        }
+
+        if (!validLast($last)) {
+
+            $isValid = false;
+            $this->_f3->set("errors['last']", "Please enter a last name");
+        }
+
+        if (!validAge($age)) {
+
+            $isValid = false;
+            $this->_f3->set("errors['age']", "Please an age");
+        }
+
+        return $isValid;
     }
 
-    if (!validLast($last)) {
+    function validInfo($email)
+    {
+        $isValid = true;
 
-        $this->_f3->set("errors['last']", "Please enter a last name");
-        $isValid = false;
-    }
-
-    if (!validAge($age)) {
-
-        $this->_f3->set("errors['age']", "Please an age");
-        $isValid = false;
-    }
-
-    if (!validPhone($phone)) {
-
-        $this->_f3->set("errors['phone']", "Please enter a phone number");
-        $isValid = false;
-    }
-    if (!validGender($gender)) {
-
-        $this->_f3->set("errors['gender']", "Please enter an email");
-        $isValid = false;
-    }
-    if ($isValid) {
-        if ($prem == 'premium') {
-            $_SESSION['member'] = new PremiumMembers($first, $last, $age, $gender, $phone);
-            $_SESSION['premium'] = true;
+        if (validEmail($email)) {
+            $isValid = true;
+            $_SESSION['member']->setEmail($email);
         } else {
-            $_SESSION['member'] = new Members($first, $last, $age, $gender, $phone);
-            $_SESSION['premium'] = false;
+            $isValid = false;
+            $this->_f3->set('error["email"]', 'Please enter a valid email');
         }
-        $this->_f3->reroute('/profile');
+        return $isValid;
+    }
+
+    function validActivities($indoor, $outdoor)
+    {
+
+//        if (isset($interest)) {
+//            if (!validIndoor($interest) || !validOutdoor($interest)) {
+//                $_SESSION['member']->setInterestArray(implode(', ', $interest));
+//            }
+//        }
     }
 }
 
-function validInfo($email, $state, $seeking, $bio)
-{
-    $this->_f3->set('email', $email);
-    $this->_f3->set('state', $state);
-    $this->_f3->set('seeking', $seeking);
-    $this->_f3->set('bio', $bio);
-    if(isset($seeking)){
-        $_SESSION['member']->setSeeking($seeking);
-    }
-
-    if(!empty($bio)){
-        $_SESSION['member']->setBio($bio);
-    }
-    $_SESSION['member']->setState($state);
-
-
-    if(validEmail($email)){
-        $_SESSION['member']->setEmail($email);
-        if($_SESSION['premium']){
-            $this->_f3->reroute('/interests');
+    function validFirst($first)
+    {
+        $name = trim($first);
+        if (!isset($name) || !ctype_alpha($name) || $name != htmlspecialchars($name)) {
+            return false;
         }
-        else{
-            $this->_f3->reroute('/results');
-        }
+        return true;
     }
-    else{
-        $this->_f3->set('error["mail"]','Please enter a valid email');
-    }
-}
 
-function validActivities($interest)
-{
-    if (isset($interest)) {
-        if (!validIndoor($interest) || !validOutdoor($interest)) {
-            $_SESSION['member']->setInterestArray(implode(', ', $interest));
+    function validLast($last)
+    {
+        $name = trim($last);
+        if (!isset($name) || !ctype_alpha($name) || $name != htmlspecialchars($name)) {
+            return false;
         }
+        return true;
     }
-}
+
+    function validAge($age)
+    {
+        $age = trim($age);
+        if (!isset($age) || ctype_alpha($age) || $age != htmlspecialchars($age) || !($age < 118 && $age > 18)) {
+            return false;
+        }
+        return true;
+    }
+
+
+    function validEmail($email)
+    {
+
+        if (trim($email) === "" || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }
+        return true;
+    }
+
+
+    function validIndoor($indoor)
+    {
+        return !empty($indoor);
+    }
+
+    function validOutdoor($outdoor)
+    {
+        return !empty($outdoor);
+    }

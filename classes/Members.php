@@ -4,19 +4,15 @@ class Members
     private $_fname;
     private $_lname;
     private $_age;
-    private $_gender;
-    private $_phone;
     private $_email;
     private $_state;
     private $_seeking;
     private $_bio;
-    function __construct($fName, $lName, $age, $gender, $phone)
+    function __construct($fName, $lName, $age)
     {
         $this->_fname = $fName;
         $this->_lname = $lName;
         $this->_age = $age;
-        $this->_gender = $gender;
-        $this->_phone = $phone;
         $this->_email = "Not Specified";
         $this->_state = "Not Specified";
         $this->_seeking = "Not Specified";
@@ -69,38 +65,6 @@ class Members
     public function setAge($age)
     {
         $this->_age = $age;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getGender()
-    {
-        return $this->_gender;
-    }
-
-    /**
-     * @param mixed $gender
-     */
-    public function setGender($gender)
-    {
-        $this->_gender = $gender;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPhone()
-    {
-        return $this->_phone;
-    }
-
-    /**
-     * @param mixed $phone
-     */
-    public function setPhone($phone)
-    {
-        $this->_phone = $phone;
     }
 
     /**

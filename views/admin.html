@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <include href="views/head.html">
+</head>
+<body>
+<div class="container">
+
+   <h1>Zippy Dating Members List</h1>
+
+   <ol>
+      <repeat group="{{ @members }}" value="{{ @member }}">
+         <li><a href="{{ @member['first'] }}">{{ @member['first'] }} - {{ @member['last'] }} -
+            {{ @member['age'] }} - {{ @member['phone'] }} - {{ @member['email'] }} - {{ @member['state'] }}
+            - {{ @member['seeking'] }} - {{ @member['bio'] }}</a></li>
+<!--         <li><a href="detail/{{ @student['sid'] }}">{{ @student['sid'] }} - {{ @student['last'] }}, {{ @student['first'] }}</a></li>-->
+      </repeat>
+   </ol>
+
+   <a href="{{ @BASE }}/add">Add a New Member</a>
+</div>
+</body>
+<include href="views/footer.html">
+</html>
